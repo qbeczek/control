@@ -70,8 +70,9 @@ begin
 	end if;
 end process proc_next_state;
 --schemat: jezeli na wejsciu jest 1 to przesuwamy rejestr i przechodzimy do nastepnego stanu
---dla zera wracamy do s1
+--dla zera przesuwamy rejestr i wracamy do s1
 --jezeli skonczy sie data_in w shifterze to wracamy do stanu s0 zeby nowe dane załadować
+--przy znalezieniu sekwencji inkrementujemy licznik value i przechodzimy do s1
 proc_aut:
 process(state_reg, data_in)
 begin
