@@ -85,6 +85,9 @@ end process proc_next_state;
 --dla zera przesuwamy rejestr i wracamy do s1
 --jezeli skonczy sie data_in w shifterze to wracamy do stanu s0 zeby nowe dane załadować
 --przy znalezieniu sekwencji inkrementujemy licznik value i przechodzimy do s1
+--**********DLA CWICZENIA 4***************
+--dla stanu s1 inkrementujemy wartosc licznika lbs1
+--dla stanu s2 inkrementujemy wartosc licznika lbs2 i dekrementujemy lbs1
 proc_aut:
 process(state_reg, data_in)
 begin
@@ -106,7 +109,7 @@ begin
 						if (shifter_in(0) = '1') then
 						
 								bits_counter_inc <= '1';   --inkrementacja w liczniku bitow
-                        lbs1_counter_inc <= '1';
+                        lbs1_counter_inc <= '1';	
 								shifter_right <= '1'; 		--przesuniecie w prawo w shifterze, analogicznie w kazdym kolejnym stanie
 								
 								state_next <= s2; 
