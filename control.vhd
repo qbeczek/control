@@ -102,6 +102,12 @@ begin
 				value_counter_load <= '1';
 				value_counter_num <= 0; --załadowanie danych do licznika wartosci i ustawienie na 0
 				
+				lbs1_counter_load <= '1';
+				lbs1_counter_num <= 0; --załadowanie danych do licznika wartosci i ustawienie na 0
+				
+				lbs2_counter_load <= '1';
+				lbs2_counter_num <= 0; --załadowanie danych do licznika wartosci i ustawienie na 0
+				
 				state_next <= s1;
 				
 			when s1 => 
