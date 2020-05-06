@@ -50,14 +50,14 @@ port(
 		bits_counter_val  : in integer range 0 to counter_width**2;
 		bits_counter_num  : out integer range 0 to counter_width**2;
 		
-	-- sterowanie licznikiem BITS
+	-- sterowanie licznikiem LBS1
 		lbs1_counter_load : out std_logic;
 		lbs1_counter_dec  : out std_logic;
 		lbs1_counter_inc  : out std_logic ;
 		lbs1_counter_val  : in integer range 0 to counter_width**2;
 		lbs1_counter_num  : out integer range 0 to counter_width**2;	
 	
-	-- sterowanie licznikiem BITS
+	-- sterowanie licznikiem LBS2
 		lbs2_counter_load : out std_logic;
 		lbs2_counter_dec  : out std_logic;
 		lbs2_counter_inc  : out std_logic ;
