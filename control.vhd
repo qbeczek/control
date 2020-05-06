@@ -50,7 +50,19 @@ port(
 		bits_counter_val  : in integer range 0 to counter_width**2;
 		bits_counter_num  : out integer range 0 to counter_width**2;
 		
-		test : out std_logic_vector (4 downto 0)
+	-- sterowanie licznikiem BITS
+		lbs1_counter_load : out std_logic;
+		lbs1_counter_dec  : out std_logic;
+		lbs1_counter_inc  : out std_logic ;
+		lbs1_counter_val  : in integer range 0 to counter_width**2;
+		lbs1_counter_num  : out integer range 0 to counter_width**2;	
+	
+	-- sterowanie licznikiem BITS
+		lbs2_counter_load : out std_logic;
+		lbs2_counter_dec  : out std_logic;
+		lbs2_counter_inc  : out std_logic ;
+		lbs2_counter_val  : in integer range 0 to counter_width**2;
+		lbs2_counter_num  : out integer range 0 to counter_width**2
 );
 end entity;
 
@@ -94,14 +106,15 @@ begin
 						if (shifter_in(0) = '1') then
 						
 								bits_counter_inc <= '1';   --inkrementacja w liczniku bitow
-                        shifter_right <= '1'; 		--przesuniecie w prawo w shifterze, analogicznie w kazdym kolejnym stanie
+                        lbs1_counter_inc <= '1';
+								shifter_right <= '1'; 		--przesuniecie w prawo w shifterze, analogicznie w kazdym kolejnym stanie
 								
 								state_next <= s2; 
 								
                   elsif (shifter_in(0) = '0') then
 						
 								bits_counter_inc <= '1';
-						  
+								
 								shifter_right <= '1';
 								state_next <= s1;
                   end if;
@@ -114,6 +127,8 @@ begin
 						if (shifter_in(0) = '1') then
 						
 								bits_counter_inc <= '1';
+								lbs1_counter_dec <= '1';
+								lbs2_counter_inc <= '1';
 								shifter_right <= '1';
 								
 								state_next <= s3;
