@@ -193,13 +193,13 @@ LBS2_COUNTER_uk	:	counter
 	generic map
 		(bits_width => counter_width)
 	port map(
-		rst => rst,
-		clk => clk,
-		load => lbs2_counter_load,
-		num => lbs2_counter_num,		 
-		inc => lbs2_counter_inc,
-		dec => lbs2_counter_dec,
-		val => lbs2_counter_val
+		rst 	=> rst,
+		clk 	=> clk,
+		load 	=> lbs2_counter_load,
+		num 	=> lbs2_counter_num,		 
+		inc 	=> lbs2_counter_inc,
+		dec 	=> lbs2_counter_dec,
+		val 	=> lbs2_counter_val
 		);
 
 
@@ -207,14 +207,14 @@ CONTROL_uk : control
 	generic map ( 
 		 shifter_width 	=> shifter_width,
 		 counter_width 	=> counter_width,
-		 data_width	 	=> data_width
+		 data_width	 		=> data_width
 		)
 	port map(
 		rst			=> rst,
 		clk			=> clk, 
-		data_in 	=> data_in,
-		calc_req	=> calc_req,
-		calc_ack	=> calc_ack,
+		data_in 		=> data_in,
+		calc_req		=> calc_req,
+		calc_ack		=> calc_ack,
 		calc_value	=> calc_value,
 	
 	-- sterowanie rejestrem przesuwajacym
@@ -227,31 +227,31 @@ CONTROL_uk : control
 
 	-- sterowanie licznikiem VALUE
 		value_counter_load => value_counter_load,
-		value_counter_dec => value_counter_dec,
-		value_counter_inc => value_counter_inc,
-		value_counter_val => value_counter_val,
-		value_counter_num => value_counter_num,
+		value_counter_dec  => value_counter_dec,
+		value_counter_inc  => value_counter_inc,
+		value_counter_val  => value_counter_val,
+		value_counter_num  => value_counter_num,
 
 	-- sterowanie licznikiem BITS
 		bits_counter_load => bits_counter_load,
-		bits_counter_dec => bits_counter_dec,
-		bits_counter_inc => bits_counter_inc,
-		bits_counter_val => bits_counter_val,
-		bits_counter_num => bits_counter_num,
-	
+		bits_counter_dec  => bits_counter_dec,
+		bits_counter_inc  => bits_counter_inc,
+		bits_counter_val  => bits_counter_val,
+		bits_counter_num  => bits_counter_num,
+	 
 	-- sterowanie licznikiem LBS1
 		lbs1_counter_load => lbs1_counter_load,
-		lbs1_counter_dec => lbs1_counter_dec,
-		lbs1_counter_inc => lbs1_counter_inc,
-		lbs1_counter_val => lbs1_counter_val,
-		lbs1_counter_num => lbs1_counter_num,
+		lbs1_counter_dec  => lbs1_counter_dec,
+		lbs1_counter_inc  => lbs1_counter_inc,
+		lbs1_counter_val  => lbs1_counter_val,
+		lbs1_counter_num  => lbs1_counter_num,
 		
 	-- sterowanie licznikiem LBS2
 		lbs2_counter_load => lbs2_counter_load,
-		lbs2_counter_dec => lbs2_counter_dec,
-		lbs2_counter_inc => lbs2_counter_inc,
-		lbs2_counter_val => lbs2_counter_val,
-		lbs2_counter_num => lbs2_counter_num
+		lbs2_counter_dec  => lbs2_counter_dec,
+		lbs2_counter_inc  => lbs2_counter_inc,
+		lbs2_counter_val  => lbs2_counter_val,
+		lbs2_counter_num  => lbs2_counter_num
 	);
 
 
