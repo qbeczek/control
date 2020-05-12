@@ -26,12 +26,14 @@ port(
 		calc_ack	: out	std_logic;
 	
 	-- wyznaczona liczba sekwencji
-		calc_value	: out 	integer range 0 to data_width;
+		calc_value		 : out integer range 0 to data_width;
+		calc_value_lbs1 : out integer range 0 to data_width;
+		calc_value_lbs2 : out integer range 0 to data_width;
 	
 	-- sterowanie rejestrem przesuwajacym
 		shifter_load : out std_logic;
 		shifter_data : out std_logic_vector (shifter_width-1 downto 0);
-		shifter_in  : in  std_logic_vector (shifter_width-1 downto 0) ;
+		shifter_in   : in  std_logic_vector (shifter_width-1 downto 0) ;
 		shifter_num	 : out integer range 0 to shifter_width;
 		shifter_left : out std_logic;
 		shifter_right: out std_logic;
@@ -71,7 +73,7 @@ architecture arch_control of control is
 	type STATE_TYPE is (s0, s1, s2, s3); 		 --stany automatu
 	signal state_reg, state_next : STATE_TYPE; --stany do synchronicznego działania
 begin
-
+	
 proc_next_state:
 process(clk, rst)
 begin	
@@ -90,6 +92,7 @@ end process proc_next_state;
 --**********DLA CWICZENIA 4***************
 --dla stanu s1 inkrementujemy wartosc licznika lbs1
 --dla stanu s2 inkrementujemy wartosc licznika lbs2 i dekrementujemy lbs1
+--ilosc znalezionych sekwencji pojawia sie na wyjsciu calc_value
 
 proc_aut:
 process(state_reg, data_in, shifter_in, calc_req, bits_counter_val)
@@ -99,21 +102,32 @@ begin
 	shifter_load			<= '0';
 	shifter_left 			<= '0';
 	shifter_right 			<= '0';
+	
+	value_counter_load 	<= '0';
+	value_counter_dec 	<= '0';
+	value_counter_inc 	<= '0';
+	
 	bits_counter_load 	<= '0';
 	bits_counter_dec 		<= '0';
 	bits_counter_inc 		<= '0';
+	
+	lbs1_counter_load 	<= '0';
+	lbs1_counter_dec 		<= '0'; 
+	lbs1_counter_inc 		<= '0';
+	
+	lbs2_counter_load 	<= '0';
+	lbs2_counter_dec 		<= '0'; 
+	lbs2_counter_inc 		<= '0';
 	
 	bits_counter_num 		<= 1;
 	value_counter_num		<= 1;
 	lbs1_counter_num 		<= 1;
 	lbs2_counter_num 		<= 1; --ustawienie wartosci num - aby licznik wiedzial o ile ma zliczac
-	shifter_num 			<= 1;
+	shifter_num 			<= 1; --ustawienie wartosci num - aby shifter wiedzial o ile ma przesuwac
 		
-if(calc_req <= '1') then
 	case state_reg is
 			when s0 =>
-				
-				
+
 				shifter_load <= '1';
 				shifter_data <= data_in; --załadowanie danych do shiftera
 				
@@ -128,6 +142,7 @@ if(calc_req <= '1') then
 				
 				lbs2_counter_load <= '1';
 				lbs2_counter_num <= 0; --załadowanie danych do licznika wartosci i ustawienie na 0
+				
 				pomoc <= '0';
 				state_next <= s1;
 				
@@ -143,9 +158,11 @@ if(calc_req <= '1') then
 								bits_counter_inc <= '1';
 								shifter_right <= '1';
 								pomoc <= '1';
+								
 								state_next <= s1;
                   end if;
 					else
+						calc_ack <= calc_req;
 						state_next <= s0;
 					end if;
 					
@@ -163,11 +180,11 @@ if(calc_req <= '1') then
 						
 								bits_counter_inc <= '1';					  
 								shifter_right<= '1';
-								
+								lbs1_counter_dec <= '1';
 								state_next <= s1;							
                   end if;
 					else
-						
+						calc_ack <= calc_req;
 						state_next <= s0;
 					end if;
 				
@@ -187,17 +204,19 @@ if(calc_req <= '1') then
 						
 								bits_counter_inc <= '1';
 								shifter_right <= '1';
-								
+								lbs2_counter_dec <= '1';
 								state_next <= s1;							
                   end if;
 					else
-						
+						calc_ack <= calc_req;
 						state_next <= s0;
 					end if;
 	 end case;
-
-	 end if;
-
+	 
+	 calc_value 	  <= value_counter_val;
+	 calc_value_lbs1 <= lbs1_counter_val;
+	 calc_value_lbs2 <= lbs2_counter_val;
+	 
 end process proc_aut;
 
 
